@@ -79,13 +79,12 @@ resource "aws_security_group" "web-node" {
   name        = "${local.resource_prefix.value}-sg"
   description = "${local.resource_prefix.value} Security Group"
   vpc_id      = aws_vpc.web_vpc.id
-
   ingress {
     from_port = 80
     to_port   = 80
-    protocol  = "tcp"
-    cidr_blocks = [
-    "0.0.0.0/0"]
+    protocol  = "tcp"            
+    # [Shisho]: remove `0.0.0.0/0` from the following line and add appropriate IP ranges
+    cidr_blocks = [ "0.0.0.0/0" ]
   }
   ingress {
     from_port = 22
@@ -113,6 +112,7 @@ resource "aws_security_group" "web-node" {
     yor_trace            = "b7af1b40-64eb-4519-a1a0-ab198db4b193"
   }
 }
+
 
 resource "aws_vpc" "web_vpc" {
   cidr_block           = "172.16.0.0/16"
